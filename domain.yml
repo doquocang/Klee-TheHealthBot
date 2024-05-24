@@ -1,0 +1,102 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- give_height_weight
+- greet
+- give_name
+- affirm
+- deny
+- cond_well
+- cond_feel_sick
+- cond_sick
+- assess_weight
+- goodbye
+- thanks
+- bot_challenge
+- ask_for_bot_ability
+- shout_at_bot
+- ask_nutrition_fact
+- ask_drugstore
+- ask_weather
+- gain_weight
+- lose_weight
+- ask_nutrition
+- ask_exercise
+
+entities:
+- cust_cond
+- cust_height
+- cust_name
+- cust_role
+- cust_weight
+- cust_food
+
+slots:
+  cust_role:
+    type: text
+    initial_value: bạn
+    influence_conversation: true
+  cust_name:
+    type: text
+    initial_value: ''
+    influence_conversation: true
+  cust_cond:
+    type: text
+    initial_value: ''
+    influence_conversation: true
+  cust_height:
+    type: text
+    initial_value: ''
+    influence_conversation: true
+  cust_weight:
+    type: text
+    initial_value: ''
+    influence_conversation: true
+  cust_food:
+    type: text
+    initial_value: ''
+    influence_conversation: true
+
+responses:
+  utter_please_rephrase:
+  - text: Xin lỗi, Klee không hiều gì cả 😵‍, có thể nhắc lại cho Klee được không 😘?
+  utter_greet:
+  - text: xin chào!✌, vui lòng cho Klee biết tên, để Klee có thể tiện xưng hô nha 😄!
+  utter_cond_feel_sick:
+  - text: '{cust_role} có thể cho Klee biết, cụ thể không khỏe chỗ nào thế nhỉ 🤔?'
+  utter_cond_well:
+  - text: thế thì tốt quá😄!!! nhưng {cust_role} cũng đừng chủ quan quá đấy, vậy Klee có thể giúp gì nữa không nhỉ?
+  utter_assess_weight:
+  - text: vui lòng cho Klee biết chiều cao và cân nặng, để Klee kiểm tra nha🧐!!!
+  utter_goodbye:
+  - text: '{cust_role} {cust_name} nhớ giữ gìn sức khỏe đấy nha, bái bai, hẹn gặp lại !!!😘'
+  - text: bye bye 😘
+  - text: tạm biệt {cust_role} {cust_name}
+  utter_thanks:
+  - text: không có gì 😆!!! Klee có thể giúp gì nữa không?
+  utter_iamabot:
+  - text: tui là Klee, Klee là bot, Klee rất muốn giúp đỡ con người 😄!
+  utter_ask_for_bot_ability:
+  - text: Klee có thể trả lời tất tần tật câu hỏi 🤓, nhưng sức khỏe con người dạo này hơi đi xuống, nên Klee chỉ muốn trả lời những câu hỏi về sức khỏe con người thôi!
+  utter_shout_at_bot:
+  - text: đừng mắng Klee mà 😭, Klee hứa lần sau sẽ làm tốt hơn ạ 😗!
+    image: "https://preview.redd.it/q0oadmywc4771.png?width=640&crop=smart&auto=webp&s=0968b7116ab5f91c40a328346219b6900395c8c2y"
+  utter_ask_cust_tohelp:
+  - text: cho Klee hỏi, hiện sức khỏe của {cust_role} {cust_name} thế nào nhỉ 🤔?
+  utter_deny_endup:
+  - text: cám ơn vì đã tin tưởng Klee nha 😘!, rất mong trong lần tới Klee có thể giúp đỡ {cust_role} {cust_name}!
+
+actions:
+- action_give_advise
+- action_give_bmi
+- action_give_drugstore
+- action_give_nutrition_fact
+- action_give_weather
+- action_welcome_with_name
+- action_gain_weight
+- action_lose_weight
+- action_give_nutrition
+- action_exercise

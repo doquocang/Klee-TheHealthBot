@@ -1,0 +1,273 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - xin chào
+    - có ai ở đây không
+    - chào buổi sáng
+    - chào buổi trưa
+    - chào buổi chiều
+    - chào buổi tối
+    - cốc cốc cốc
+    - cúc cu
+    - halo
+    - yo
+    - chào
+    - alo
+    - bạn gì ơi
+    - hello
+    - hi
+    - hế lô
+    - alo alo nghe gì không
+
+- intent: give_name
+  examples: |
+    - [anh](cust_role) tên là [Ân](cust_name)
+    - tên của [t](cust_role) là [Bình](cust_name)
+    - [Chương](cust_name)
+    - [chị](cust_role) tên là [Dũng](cust_name)
+    - gọi [anh](cust_role) là [Hiếu](cust_name)
+    - [cô](cust_role) tên là [Khôi](cust_name)
+    - cứ gọi [em](cust_role) là [Khoa](cust_name)
+    - [bác](cust_role) tên là [Ni](cust_name)
+    - là [Trí](cust_name)
+    - [chú](cust_role) tên là [Tú](cust_name)
+    - dạ [em](cust_role) tên là [Nhật](cust_name) ạ
+    - [dì](cust_role) tên là [Trung](cust_name)
+    - [Quyền](cust_name) là [tao](cust_role) 
+    - [ông](cust_role) tên là [Tứ](cust_name)
+    - my name is [Quang](cust_name)
+    - [bà](cust_role) tên là [Lộc](cust_name)
+    - i am [Linh](cust_name)
+    - [tôi](cust_role) tên là [Anh](cust_name)
+    - [mình](cust_role) tên là [Đạt](cust_name)
+    - [tớ](cust_role) tên là [Hào](cust_name)
+    - [tui](cust_role) tên là [Quang](cust_name)
+
+- intent: affirm
+  examples: |
+    - có 
+    - yes
+    - yep
+    - tất nhiên rồi
+    - có chứ
+    - có tôi muốn
+
+- intent: deny
+  examples: |
+    - không
+    - k
+    - hông
+    - không cần đâu
+    - no
+    - nâu
+    - cám ơn nhưng mình không cần nữa
+
+- intent: cond_well
+  examples: |
+    - mình rất khỏe
+    - tôi khá ổn
+    - cũng tạm tạm
+    - rất tốt
+    - mình cảm thấy tốt
+    - khỏe mạnh
+    - tui khỏe như trâu
+    - tôi ổn 
+    - bình thường
+    - anh cảm thấy khỏe không bị gì cả
+    - vô cùng khỏe
+    - rất khỏe
+    - cũng được á
+    - t khỏe lắm
+
+- intent: cond_feel_sick
+  examples: |
+    - mình đang mệt
+    - tôi rất mệt
+    - tui mệt quá hu hu
+    - tôi đang đau
+    - mình cảm thấy khó chịu quá
+    - tôi thấy không khỏe lắm
+    - mình đang không khỏe
+    - mình đang cảm thấy hơi mệt
+    - tôi cảm thấy mệt quá
+    - t mệt ghê ấy
+
+- intent: cond_sick
+  examples: |
+    - tôi đang [đau đầu](cust_cond)
+    - tự dưng [nhức đầu](cust_cond) ghê
+    - cứu, [đầu](cust_cond) tôi đau ghê
+    - [đau bụng](cust_cond) quá ấy
+    - [bụng](cust_cond) mình đau ghê
+    - giúp với tôi bị [sổ mũi](cust_cond)
+    - em bị [đau họng](cust_cond) giờ phải làm sao
+    - [viêm họng](cust_cond) quá
+    - cô đang bị [cảm](cust_cond) í
+    - tui bị [sốt](cust_cond) bạn giúp tui được không?
+    - bị [cảm cúm](cust_cond) khó chịu quá!
+    - mình đang bị [ho](cust_cond)
+    - hình như anh đang [đau trong lòng](cust_cond)
+    - cô cảm giác như bị [cảm](cust_cond)
+
+- intent: assess_weight
+  examples: |
+    - tôi có đang thừa cân không?
+    - mình có bị béo phì không?
+    - hình như mình bị thừa cân thì phải
+    - kiểm tra chỉ số bmi
+    - anh đang thừa cân phải không?
+    - tôi quá ốm thì phải
+    - có phải tôi bị suy dinh dưỡng không
+    - kiểm tra xem tui có bị thừa cân không
+    - liệu t có bị thừa cân không ta
+    - không biết anh có bị thừa cân quá không nhỉ
+
+- intent: give_height_weight
+  examples: |
+    - mình cao [175 cm](cust_height) nặng [80 kg](cust_weight)
+    - tôi cao [90 cm](cust_height) nặng [50 kí](cust_weight)
+    - mình cao [165](cust_height) nặng [67 cân](cust_weight)
+    - chiều cao của anh là [145 cm](cust_height) còn cân nặng thì [102 cân](cust_weight)
+    - [201 cm](cust_height) [93 kg](cust_weight)
+    - [m76](cust_height) [78 kg](cust_weight)
+    - anh cao [1m74](cust_height) nặng [78 cân](cust_weight)
+    - cô cao [1m 45](cust_height) nặng [23 kí](cust_weight)
+    - tui cao [2m01](cust_height) nặng [34kg](cust_weight)
+    - t cao [m 54](cust_height) nặng [88 cân](cust_weight)
+    - [mét 83](cust_height) [91 kí](cust_weight)
+    - mình [mét76](cust_height) [87 cân](cust_weight)
+
+- intent: gain_weight
+  examples: |
+    - tôi muốn tăng cân
+    - mình muốn tăng cân
+    - anh muốn tăng cơ băp
+    - tui muốn người to ra
+    - t muốn người lớn lên
+    - cách tăng cân nhanh
+    - phương pháp tăng cân hiệu quả
+
+- intent: lose_weight
+  examples: |
+    - tôi muốn giảm cân
+    - mình muốn giảm béo
+    - cách giảm cân hiệu quả
+    - phương pháp giảm béo nhanh
+    - t muốn ốm bớt
+    - các giảm mỡ thừa
+
+- intent: ask_nutrition
+  examples: |
+    - chất dinh dưỡng có trong [bánh](cust_food)
+    - chất dinh dưỡng có trong [cá](cust_food)
+    - chất dinh dưỡng có trong [cơm](cust_food)
+    - lượng dinh dưỡng có trong [canh](cust_food)
+    - thành phần dinh dưỡng trong [thịt heo](cust_food)
+    - thành phần dinh dưỡng có ở [xôi](cust_food)
+    - dưỡng chất trong [bún](cust_food)
+    - trong [thịt](cust_food) có bao nhiêu calo
+    - có bao nhiêu calo trong [trứng](cust_food)
+    - có bao nhiêu đạm trong [sữa](cust_food)
+    - số đường có trong [bánh bao](cust_food)
+    - lượng chất béo có trong [bánh mì]((cust_food))
+    - trong [thịt bò](cust_food) có bao nhiêu đạm
+
+- intent: ask_exercise
+  examples: |
+    - tập luyện thể dục
+    - các bài tập tập luyện thể dục
+    - lượng mỡ đốt được trong các bài tập thể dục
+    - calo đốt được trong các bài tập thể dục
+    - hướng dẫn tôi tập thể dục
+    - vận động đơn giản
+    - các hình thức vận động
+    - chơi môn thể thao gì để giảm cân
+    - tập luyện thể dục như thế nào
+
+# rules
+- intent: goodbye
+  examples: |
+    - bye
+    - bai
+    - tạm biệt
+    - hẹn gặp lại
+    - chào nhé
+    - chào Klee
+    - goodbye
+    - see you again
+    - đi đây
+    - bảo trọng
+    - bái bai
+    - chào Klee nha
+
+- intent: thanks
+  examples: | 
+    - cám ơn 
+    - đa tạ
+    - cám ơn nhiều
+    - cảm ơn nhé
+    - giỏi lắm Klee
+    - thanks
+    - thank you
+    - thanh kiu
+    - anh cám ơn Klee nha
+    - chị cám ơn Klee
+
+- intent: bot_challenge
+  examples: |
+    - mày là ai
+    - em là ai
+    - mày tên gì
+    - nhóc là bot hả?
+    - mi là ngươi hay là bot?
+    - Klee là ai
+    - bạn là ai
+    - bạn tên gì
+
+- intent: ask_for_bot_ability
+  examples: |
+    - cho tôi biết bạn có thể làm gì?
+    - m có thể làm gì?
+    - bot làm được gì nào
+    - chức năng của bot
+    - bot giúp được gì cho con người
+
+- intent: shout_at_bot
+  examples: |
+    - đồ ngu
+    - đồ ngốc 
+    - đồ điên 
+    - bot vô dụng
+    - không được tích sự gì cả
+    - cút 
+    - biến đi
+    - bất tài
+    - vô dụng
+
+- intent: ask_nutrition_fact
+  examples: |
+    - hôm nay ăn gì nhỉ?
+    - ăn gì đây ta
+    - giá trị dinh dưỡng các món ăn phổ biến
+    - chất dinh dưỡng có trong thức ăn
+    - các chất có trong món ăn hàng ngày
+    - dinh dưỡng trong các món ăn
+
+- intent: ask_drugstore
+  examples: |
+    - mua thuốc ở đâu?
+    - địa điểm bán thuốc
+    - quầy thuốc ở Huế
+    - làm sao để mua thuốc
+    - tôi muốn mua thuốc
+
+- intent: ask_weather
+  examples: |
+    - thời tiết hôm nay
+    - tối nay thời tiết thế nào nhỉ
+    - dự báo thời tiết
+    - tôi muốn xem thời tiết hiện tại
+    - nhiệt độ hiện tại
+    - trời hôm nay nóng quá, cho xem tình hình thời tiết đi

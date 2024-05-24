@@ -1,0 +1,99 @@
+version: "2.0"
+
+stories:
+
+- story: chào, hỏi tên - mệt - báo bệnh - hỏi quầy thuốc - không cần giúp thêm
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_name
+    entities:
+    - cust_role
+    - cust_name
+  - slot_was_set:
+    - cust_role
+    - cust_name
+  - action: action_welcome_with_name
+  - action: utter_ask_cust_tohelp
+  - intent: cond_feel_sick
+  - action: utter_cond_feel_sick
+  - intent: cond_sick
+    entities:
+    - cust_cond
+  - slot_was_set:
+    - cust_cond
+  - action: action_give_advise
+  - intent: ask_drugstore
+  - action: action_give_drugstore
+
+- story: báo bệnh
+  steps:
+  - intent: cond_sick
+    entities:
+    - cust_cond
+  - slot_was_set:
+    - cust_cond
+  - action: action_give_advise
+
+- story: chào, hỏi tên - không mệt - không cần giúp thêm
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_name
+    entities:
+    - cust_role
+    - cust_name
+  - slot_was_set:
+    - cust_role
+    - cust_name
+  - action: action_welcome_with_name
+  - action: utter_ask_cust_tohelp
+  - intent: cond_well
+  - action: utter_cond_well
+  - intent: deny
+  - action: utter_deny_endup
+
+- story: hỏi cân nặng - chỉ số bmi
+  steps:
+  - intent: assess_weight
+  - action: utter_assess_weight
+  - intent: give_height_weight
+    entities:
+    - cust_height: 175 cm
+    - cust_weight: 80 kg
+  - slot_was_set:
+    - cust_height: 175 cm
+  - slot_was_set:
+    - cust_weight: 80 kg
+  - action: action_give_bmi
+
+- story: muốn tăng cân
+  steps:
+  - intent: gain_weight
+  - action: action_gain_weight
+  - intent: ask_nutrition
+    entities:
+    - cust_food: bánh
+  - slot_was_set:
+    - cust_weight: bánh
+  - action: action_give_nutrition
+  - intent: ask_exercise
+  - action: action_exercise
+
+- story: muốn giảm cân
+  steps:
+  - intent: lose_weight
+  - action: action_lose_weight
+  - intent: ask_nutrition
+    entities:
+    - cust_food: bánh
+  - slot_was_set:
+    - cust_weight: bánh
+  - action: action_give_nutrition
+
+- story: cám ơn - không cần trợ giúp thêm - kết thúc
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+  - intent: deny
+  - action: utter_deny_endup

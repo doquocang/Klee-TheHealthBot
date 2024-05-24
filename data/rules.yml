@@ -1,0 +1,48 @@
+version: "2.0"
+
+rules:
+
+- rule: hỏi lại khi người dùng hỏi những câu hỏi không rõ
+  steps:
+  - intent: nlu_fallback
+  - action: utter_please_rephrase
+
+- rule: Bất cứ lúc nào người dùng tạm biệt thì tạm biệt
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Trả lời các câu hỏi của người dùng về thông tin của bot
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Trả lời các câu hỏi của người dùng về khả năng của bot
+  steps:
+  - intent: ask_for_bot_ability
+  - action: utter_ask_for_bot_ability
+
+- rule: Nịnh người dùng bất cứ khi nào người dùng chửi bot
+  steps:
+  - intent: shout_at_bot
+  - action: utter_shout_at_bot
+
+- rule: Cho người dùng xem chất dinh dưỡng ở các món ăn phổ biến
+  steps:
+  - intent: ask_nutrition_fact
+  - action: action_give_nutrition_fact
+
+- rule: Cho người dùng xem thông tin, địa chỉ các quầy thuốc
+  steps:
+  - intent: ask_drugstore
+  - action: action_give_drugstore
+
+- rule: Gợi ý các hoạt động thể dục cho người dùng
+  steps:
+  - intent: ask_exercise
+  - action: action_exercise
+
+- rule: Cho người dùng xem thời tiết hiện tại
+  steps:
+  - intent: ask_weather
+  - action: action_give_weather
