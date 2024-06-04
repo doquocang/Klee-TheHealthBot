@@ -2,7 +2,8 @@ version: "2.0"
 
 stories:
 
-- story: chào, hỏi tên - mệt - báo bệnh - hỏi quầy thuốc - không cần giúp thêm
+#common
+- story: chào, hỏi với tên
   steps:
   - intent: greet
   - action: utter_greet
@@ -15,43 +16,6 @@ stories:
     - cust_name
   - action: action_welcome_with_name
   - action: utter_ask_cust_tohelp
-  - intent: cond_feel_sick
-  - action: utter_cond_feel_sick
-  - intent: cond_sick
-    entities:
-    - cust_cond
-  - slot_was_set:
-    - cust_cond
-  - action: action_give_advise
-  - intent: ask_drugstore
-  - action: action_give_drugstore
-
-- story: báo bệnh
-  steps:
-  - intent: cond_sick
-    entities:
-    - cust_cond
-  - slot_was_set:
-    - cust_cond
-  - action: action_give_advise
-
-- story: chào, hỏi tên - không mệt - không cần giúp thêm
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: give_name
-    entities:
-    - cust_role
-    - cust_name
-  - slot_was_set:
-    - cust_role
-    - cust_name
-  - action: action_welcome_with_name
-  - action: utter_ask_cust_tohelp
-  - intent: cond_well
-  - action: utter_cond_well
-  - intent: deny
-  - action: utter_deny_endup
 
 - story: hỏi cân nặng - chỉ số bmi
   steps:
@@ -71,25 +35,11 @@ stories:
   steps:
   - intent: gain_weight
   - action: action_gain_weight
-  - intent: ask_nutrition
-    entities:
-    - cust_food: bánh
-  - slot_was_set:
-    - cust_weight: bánh
-  - action: action_give_nutrition
-  - intent: ask_exercise
-  - action: action_exercise
 
 - story: muốn giảm cân
   steps:
   - intent: lose_weight
   - action: action_lose_weight
-  - intent: ask_nutrition
-    entities:
-    - cust_food: bánh
-  - slot_was_set:
-    - cust_weight: bánh
-  - action: action_give_nutrition
 
 - story: cám ơn - không cần trợ giúp thêm - kết thúc
   steps:
@@ -97,3 +47,93 @@ stories:
   - action: utter_thanks
   - intent: deny
   - action: utter_deny_endup
+
+- story: chào, hỏi tên - không mệt - không cần giúp thêm
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: give_name
+    entities:
+    - cust_role
+    - cust_name
+  - slot_was_set:
+    - cust_role
+    - cust_name
+  - action: action_welcome_with_name
+  - action: utter_ask_cust_tohelp
+  - intent: cond_well
+  - action: utter_cond_well
+  - intent: deny
+  - action: utter_deny_endup
+
+# health
+# Viêm phế quản cấp
+- story: chuẩn đoán viêm phế quản cấp
+  steps:
+  - intent: ask_chuan_doan_lamsan_viemphequancap
+  - action: utter_chuan_doan_lamsan_viemphequancap
+  - action: action_chuan_doan_phanbiet_viemphequancap
+  - intent: ask_treatment
+  - action: action_treatment_viemphequancap
+  - intent: ask_prevention
+  - action: action_prevent_viemphequancap
+
+# Tang huyet ap
+- story: chuẩn đoán tăng huyết áp
+  steps:
+  - intent: ask_chuan_doan_lamsan_tanghuyetap
+  - action: utter_chuan_doan_lamsan_tanghuyetap
+  - intent: ask_treatment
+  - action: action_treatment_tanghuyetap
+  - intent: ask_prevention
+  - action: action_prevent_tanghuyetap
+
+# Nhoi mau co tim
+- story: chuẩn đoán nhồi máu cơ tim
+  steps:
+  - intent: ask_chuan_doan_lamsan_nhoimaucotim
+  - action: utter_chuan_doan_lamsan_nhoimaucotim
+  - intent: ask_treatment
+  - action: action_treatment_nhoimaucotim
+  - intent: ask_prevention
+  - action: action_prevent_nhoimaucotim
+
+# Đái tháo đường
+- story: chuẩn đoán đái tháo đường
+  steps:
+  - intent: ask_chuan_doan_lamsan_daithaoduong
+  - action: utter_chuan_doan_lamsan_daithaoduong
+  - intent: ask_treatment
+  - action: action_treatment_daithaoduong
+  - intent: ask_prevention
+  - action: action_prevent_daithaoduong
+
+# xơ gan
+- story: chuẩn đoán xơ gan
+  steps:
+  - intent: ask_chuan_doan_lamsan_sogan
+  - action: utter_chuan_doan_lamsan_sogan
+  - intent: ask_treatment
+  - action: action_treatment_sogan
+  - intent: ask_prevention
+  - action: action_prevent_sogan
+
+# viêm loét dạ dày
+- story: chuẩn đoán viêm loét dạ dày
+  steps:
+  - intent: ask_chuan_doan_lamsan_loetdaday
+  - action: utter_chuan_doan_lamsan_loetdaday
+  - intent: ask_treatment
+  - action: action_treatment_loetdaday
+  - intent: ask_prevention
+  - action: action_prevent_loetdaday
+
+# sỏi thận
+- story: chuẩn đoán sỏi thận
+  steps:
+  - intent: ask_chuan_doan_lamsan_soithan
+  - action: utter_chuan_doan_lamsan_soithan
+  - intent: ask_treatment
+  - action: action_treatment_soithan
+  - intent: ask_prevention
+  - action: action_prevent_soithan

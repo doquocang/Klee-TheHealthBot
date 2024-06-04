@@ -42,23 +42,6 @@ class WelcomWithName(Action):
         return [SlotSet("cust_role", slot_cust_role)]
 
 
-class GiveNutritionFact(Action):
-
-    def name(self) -> Text:
-        return "action_give_nutrition_fact"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        df = pd.read_excel(r'D:\Study\Python\chatbot\testUnderthesea\excel\calo.xlsx')
-        table = df.values.tolist()
-
-        dispatcher.utter_message(tabulate(table, headers="firstrow", tablefmt="fancy_grid"))
-
-        return []
-
-
 class GiveNutrition(Action):
 
     def name(self) -> Text:
@@ -68,93 +51,28 @@ class GiveNutrition(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        df = pd.read_excel(r'D:\Study\Python\chatbot\testUnderthesea\excel\calo.xlsx')
-        table = df.values.tolist()
+        # Đọc file Excel đã được upload
+        df = pd.read_excel(r'D:\Study\python\chatbot\Klee_TheHealthBot-master\excel\calo.xlsx')
 
+        # Lấy giá trị từ slot "cust_food"
         slot_cust_food = tracker.get_slot("cust_food").lower()
 
-        newtable = []
-        for i in range(len(table)):
-            if table[i][0].find(slot_cust_food) >= 0 or i == 0:
-                a = []
-                for j in range(len(table[i])):
-                    a.append(table[i][j])
-                newtable.append(a)
+        # Tìm kiếm các dòng có chứa từ khóa trong cột đầu tiên
+        found_rows = df[df.iloc[:, 0].str.contains(slot_cust_food, case=False, na=False)]
 
-        dispatcher.utter_message(tabulate(newtable, headers="firstrow", tablefmt="fancy_grid"))
-
-        return []
-
-
-class GiveAdvise(Action):
-
-    def name(self) -> Text:
-        return "action_give_advise"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        slot_cust_cond = tracker.get_slot("cust_cond").lower()
-        slot_cust_role = tracker.get_slot("cust_role")
-        slot_cust_name = tracker.get_slot("cust_name")
-        rn = slot_cust_role + " " + slot_cust_name
-        if slot_cust_cond in ("đau đầu", "nhức đầu", "đầu"):
-            dispatcher.utter_message(rn + " có thế áp dụng một số phương pháp sau đây để làm giảm cơn đau hiệu quả:\n"
-                                          "- Nghỉ ngơi, tránh căng thẳng\n- Uống nhiều nước\n- Chườm lạnh\n"
-                                          "- Tắm nước nóng\n- Tập thể dục\n- Bấm huyệt, massage\n"
-                                          "- Tránh xa tiếng ồn, nơi có ánh sáng gắt, gió to\n"
-                                          "- Không nên ngồi máy tính quá lâu\n- Chế độ ăn uống hợp lý")
-        elif slot_cust_cond in ("đau bụng", "bụng"):
-            dispatcher.utter_message(rn + " có thế áp dụng một số phương pháp sau đây để làm giảm cơn đau hiệu quả:\n"
-                                          "- Chườm ấm\n- Sử dụng baking soda\n- Nâng đầu lên cao để hết đau bụng\n"
-                                          "- Ăn các món dễ tiêu hóa\n- nhờ bác sĩ kê đơn cho những loại thuốc bổ sung"
-                                          " probiotic hoặc ăn nhiều thực phẩm lên men như sữa chua\n"
-                                          "- Sử dụng thảo dược như: tiểu hồi, bạc hà, gừng "
-                                          "- và hoa cúc, hoa cúc và gừng khô, ...\n"
-                                          "- Massage nhẹ nhàng\n- Bổ sung lợi khuẩn mỗi ngày\n"
-                                          "- Chế độ ăn uống hợp lý\n!!! Hãy đi khám bác sĩ nếu cơn đau không cải thiện "
-                                          "hoặc khi có các triệu chứng nặng như: nôn ói, đại tiện ra máu, mệt mỏi, "
-                                          "thiếu máu, ...")
-        elif slot_cust_cond in ("sổ mũi", "nghẹt mũi"):
-            dispatcher.utter_message(rn + " có thế áp dụng một số phương pháp sau để làm giảm sổ mũi hiệu quả:\n"
-                                          "- Uống nhiều nước\n- Uống trà nóng\n- Xông hơi mặt\n- Tắm với nước ấm\n"
-                                          "- Sử dụng dụng cụ rửa mũi\n- Ăn đồ cay để trị sổ mũi\n- Dùng capsaicin\n"
-                                          "- Kê gối cao khi ngủ\n- Tăng độ ẩm không khí trong phòng hoặc trong nhà\n"
-                                          "- Đeo khẩu trang\n!!! Đi khám bác sĩ nếu cơn đau không cải thiện hoặc khi"
-                                          ": sốt cao trên 38 độ, đau cổ họng dữ dội, Đau nhức lồng ngực, khó thở hoặc "
-                                          "thở khò khè, tình trạng sốt kéo dài liên tục, ...")
-        elif slot_cust_cond in ("đau họng", "viêm họng"):
-            dispatcher.utter_message(rn + " có thế áp dụng một số phương pháp sau đây để làm giảm cơn đau hiệu quả:\n"
-                                          "- Súc miệng bằng nước muối\n- Sử dụng thuốc ngậm ho không kê đơn\n"
-                                          "- Thử giảm đau OTC\n- Thưởng thức một giọt mật ong\n"
-                                          "- Thử xịt họng có thành phần từ cây echinacea và xô thơm\n"
-                                          "- Giữ đủ nước cho cơ thể\n- Sử dụng máy tạo độ ẩm\n- Tắm hơi\n"
-                                          "!!! Hãy đi khám bác sĩ nếu cơn đau không cải thiện hoặc khi: bị đau dữ dội "
-                                          "khi nuốt, phát sốt cao, buồn nôn hoặc nôn mửa, ...")
-        elif slot_cust_cond in ("cảm", "sốt", "cảm cúm"):
-            dispatcher.utter_message(rn + " có thế áp dụng một số phương pháp sau để làm giảm cơn cảm cúm hiệu quả:\n"
-                                          "- Vệ sinh mũi sạch sẽ\n- Vệ sinh họng bằng nước muối loãng\n"
-                                          "- Uống nhiều nước nóng\n- Chườm nóng hoặc chườm lạnh\n"
-                                          "- Nghỉ ngơi, thư giãn\n- Uống thuốc hạ sốt\n- Xông lá\n- Ăn đồ nóng, lỏng\n"
-                                          "- Sinh hoạt và nghỉ ngơi hợp lý\n!!! Bị cảm cúm thường có triệu chứng sốt, "
-                                          "tuy nhiên sau 7 ngày vẫn không giảm sốt hoặc tái sốt thì bạn cần đến cơ "
-                                          "sở y tế ngay vì có thể bị bội nhiễm vi khuẩn và các biến chứng nguy hiểm "
-                                          "khó lường khác.")
-        elif slot_cust_cond == "ho":
-            dispatcher.utter_message(rn + " có thế sử dụng sau đây để làm giảm cơn ho hiệu quả:\n"
-                                          "- Tỏi ngâm mật ong\n- Mật ong gừng\n- Chanh đào mật ong\n"
-                                          "- Chanh sả mật ong\n- Lê hấp mật ong\n- Siro húng quất đường phèn\n"
-                                          "- Hành tây ngâm mật ong\n- Quýt ngâm đường phèn\n!!! Hãy đi khám bác sĩ "
-                                          "nếu cơn đau không cải thiện hoặc khi có các triệu chứng nặng như: ho khan "
-                                          "không có dấu hiệu của cảm cúm hay viêm họng, tuy nhiên khi ngủ trưa hoặc "
-                                          "ban đêm lại bị ho, ngứa họng và ho dai dẳng liên tục, ...")
+        if not found_rows.empty:
+            # Chọn dòng đầu tiên khớp với từ khóa
+            first_row = found_rows.iloc[0]
+            # Định dạng thông tin dinh dưỡng theo yêu cầu
+            nutrition_info = f"[{first_row[1]}] {first_row[0]} có: {first_row[2]} CALO, {first_row[3]} ĐẠM (g), {first_row[4]} BÉO (g), {first_row[5]} CARB (g), {first_row[6]} ĐƯỜNG (g)"
+            message = nutrition_info
         else:
-            dispatcher.utter_message("a! hình như bệnh này Klee chưa được học "
-                                     + slot_cust_role + " đợi Klee đi học đã nha!")
+            message = f"Không tìm thấy thông tin dinh dưỡng cho {slot_cust_food}."
+
+        # Gửi tin nhắn đến người dùng
+        dispatcher.utter_message(message)
 
         return []
-
 
 class GiveDrugstore(Action):
 
@@ -165,7 +83,7 @@ class GiveDrugstore(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        df = pd.read_excel(r'D:\Study\Python\chatbot\testUnderthesea\excel\quaythuoc.xlsx')
+        df = pd.read_excel(r'D:\Study\python\chatbot\Klee_TheHealthBot-master\excel\quaythuoc.xlsx')
         table = df.values.tolist()
 
         dispatcher.utter_message(tabulate(table, headers="firstrow", tablefmt="fancy_grid"))
@@ -185,11 +103,33 @@ class GiveWeather(Action):
         resp = requests.get('https://nchmf.gov.vn/Kttvsite/vi-VN/1/hue-w7.html')
         soup = BeautifulSoup(resp.content, "html.parser")
 
-        location = soup.find("h1", class_="tt-news").text
+        location = soup.find("h1", class_="tt-news").text.strip()
         rawweather = soup.find("div", class_="content-news fix-content-news")
-        weather = rawweather.text.replace("\n\n\n", "\n").replace("\n\n\n\n", "\n---------------------------\n")
+        weather = rawweather.text.strip()
 
-        dispatcher.utter_message(location + "\n" + weather)
+        # Clean and format the weather text
+        weather = weather.replace("\n\n\n", "\n").replace("\n\n\n\n", "\n---------------------------\n")
+        weather_lines = weather.split('\n')
+
+        formatted_weather = []
+        for line in weather_lines:
+            line = line.strip()
+            if line:
+                if line.startswith("Nhiệt độ"):
+                    line = "🌡️ " + line
+                elif line.startswith("Độ ẩm"):
+                    line = "💧 " + line
+                elif line.startswith("Gió"):
+                    line = "💨 " + line
+                elif line.startswith("Mưa"):
+                    line = "🌧️ " + line
+                formatted_weather.append(line)
+
+        formatted_weather_text = "\n".join(formatted_weather)
+
+        message = f"📍 {location}\n\n{formatted_weather_text}"
+
+        dispatcher.utter_message(message)
 
         return []
 
@@ -309,9 +249,317 @@ class Exercise(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        df = pd.read_excel(r'D:\Study\Python\chatbot\testUnderthesea\excel\taptd.xlsx')
+        df = pd.read_excel(r'D:\Study\python\chatbot\Klee_TheHealthBot-master\excel\taptd.xlsx')
         table = df.values.tolist()
 
         dispatcher.utter_message(tabulate(table, headers="firstrow", tablefmt="fancy_grid"))
 
         return []
+
+# ViemPheQuanCap
+class Chuan_doan_phanbiet_viemphequancap(Action):
+
+    def name(self) -> Text:
+        return "action_chuan_doan_phanbiet_viemphequancap"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # # slot_cust_role = tracker.get_slot("cust_role").lower()
+        # # slot_cust_name = tracker.get_slot("cust_name")
+        # if len(slot_cust_name) == 0:
+        #     rn = slot_cust_role + slot_cust_name
+        # else:
+        #     rn = slot_cust_role + " " + slot_cust_name
+
+        dispatcher.utter_message("Chẩn đoán phân biệt: \n"
+                                 " - hen phế quản tăng tiết dịch: sau cơn hen thì hết các triệu chứng\n"
+                                 " - ứ đọng phổi trong suy tim: có biểu hiện suy tim\n"
+                                 " - nghe phổi có ran rít\n"
+                                 " - Một số bệnh phổi có biểu hiện viêm phế quản: lao phổi, bệnh bụi phổi, ung thư phổi: "
+                                 "không nghĩ đến viêm phế quản nếu triệu chứng nghe phổi chỉ ở một bên\n"
+                                 )
+
+        return []
+
+    class Treatment_viemphequancap(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_viemphequancap"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị: \n"
+                                     "Thể nhẹ: nghỉ ngơi tại giường, uống đủ nước, không cần dùng kháng sinh \n"
+                                     "Thể nặng: Cho kháng sinh:\n"
+                                     " - Nhóm Macrolid: Erythromycin uống 2g/ngày, Azythromycin 0.5 g/ngày đầu sau đó 250mg x 4 ngày, \n"
+                                     " - Nhóm Quinolon: Ciprofloxacin uống 200 - 400mg/ ngày\n"
+                                     " - Nên cho kháng histamin khi có dấu hiệu co thắt phế quản\n"
+                                     " - Long đờm: Acemux, Mucomys 200 mg x 4 gói/ ngày\n"
+                                     )
+
+            return []
+
+
+    class Prevent_viemphequancap(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_viemphequancap"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Bỏ, hạn chế các yếu tố kích thích: thuốc lá thuốc lào \n"
+                                     " - Bảo hộ lao động cho những người tiếp xúc với môi trường có nhiều bụi như công nhân làm việc ở hầm mỏ.\n"
+                                     " - Xây dựng các xí nghiệp xa vùng dân cư và ngược chiều gió.\n"
+                                     " - Tiêm phòng cúm vào mùa thu - đông\n"
+                                     " - Điều trị tốt các ổ nhiễm trùng đường hô hấp trên"
+                                     )
+
+            return []
+
+    class Treatment_tanghuyetap(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_tanghuyetap"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị: \n"
+                                     " - Hạn chế Na dưới 5g NaCl mỗi ngày.\n"
+                                     " - Hạn chế mỡ, các chất béo động vật\n"
+                                     " - Không rượu, thuốc lá, chè đặc\n"
+                                     " - Tránh lao động trí óc căng thẳng, lo lắng quá độ, nên tập thể dục nhẹ, đi bộ thư giãn, bơi lội\n"
+                                     " - Giảm cân nặng\n"
+                                     " - Hoạt động thể lực\n"
+                                     )
+
+            return []
+
+
+    class Prevent_tanghuyetap(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_tanghuyetap"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Tổ chức khám bệnh thường xuyên, có chu kỳ, có đo huyết áp, quan trọng nhất là phát hiện bệnh ở giai đoạn đầu\n"
+                                     " - Bố trí giờ giấc, chế độ nghỉ ngơi hợp lý, xen kẽ\n"
+                                     " - Hạn chế muối, tránh các chất kích thích (thuốc lá, cà phê, rượu, chè…..)\n"
+                                     " - Trong sinh hoạt tránh mọi căng thẳng, xúc cảm mạnh.\n"
+                                     " -  Những người lao động trí óc cần kết hợp với công việc chân tay nhẹ nhàng tập thể dục"
+                                     )
+
+            return []
+
+    class Treatment_nhoimaucotim(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_nhoimaucotim"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị: \n"
+                                     " Giai đoạn trước khi vào bệnh viện:\n"
+                                     " - An thần Diazepam 10mg uống\n"
+                                     " - Thuốc giãn mạch vành papaverin\n"
+                                     " - Chuyển bệnh nhân đến bệnh viện\n"
+                                     " Giai đoạn ở bệnh viện: \n"
+                                     " - Thở oxy\n"
+                                     " - Nitroglyxerin 0,5mg đặt dưới lưỡi\n"
+                                     " - Nếu không hết đau cho propranolol 20mg (uống) x 2- 4 lần/ngày\n"
+                                     " - Thuốc ức chế canxi: Nifedipin 10- 20mg x 3- 4 lần trong ngày\n"
+                                     )
+
+            return []
+
+    class Prevent_nhoimaucotim(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_nhoimaucotim"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Bỏ thuốc lá\n"
+                                     " - Có chế độ theo dõi chặt chẽ huyết áp\n"
+                                     " - Giảm mỡ máu\n"
+                                     " - Điều trị tích cực đái tháo đường\n"
+                                     " - Tăng cường luyện tập và hoạt động thể lực nhiều hơn\n"
+                                     )
+
+            return []
+
+    class Treatment_sogan(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_sogan"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị: \n"
+                                     " Chế độ nghỉ ngơi tuyệt đối trong đợt tiến triển\n"
+                                     " Ăn tăng đường, đạm, ăn nhạt nếu có phù\n"
+                                     " Thuốc: \n"
+                                     " - Cải thiện chuyển hoá tế bào gan: các vitamin\n"
+                                     " - Tăng cường đồng hoá đạm: Testosteron 100mg/ 2 tuần\n"
+                                     " - Uống, truyền Glucoza\n"
+                                     " - Truyền máu, đạm, plasma, albumin.\n"
+                                     " - Lợi tiểu không thải Kali, kháng aldosteron;"
+                                     )
+
+            return []
+
+    class Prevent_sogan(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_sogan"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Biện pháp chung dự phòng là không làm cho gan nhiễm độc.Điều trị các bệnh gan có sẵn\n"
+                                     " - Không uống nhiều rượu\n"
+                                     " - p tuyên truyền tác hại của rượu , bệnh viêm gan B , các tác nhân khác... và dự phòng Vaccin viêm gan B\n"
+                                     )
+
+            return []
+
+    class Treatment_daithaoduong(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_daithaoduong"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị: \n"
+                                     " - Đái tháo đường typ I: Thường ở người trẻ:\n"
+                                     "thể trạng gầy, có nhiều biến chứng và hay "
+                                     "gặp biến chứng về chuyển hoá, kháng nguyên bạch cầu thuộc nhóm HLA-DR3, "
+                                     "HLA-DR4, có kháng thể chống tế bào Langerhgans. Bắt buộc phải điều trị bằng"
+                                     "insulin tiêm. - \n"
+                                     " - Đái tháo đường typ II: Thường ở người nhiều tuổi, thể trạng béo, ít có biến "
+                                     "chứng và hay gặp biến chứng về tim mạch. Thường dùng viên hạ đường huyết uống,"
+                                     "trong một số trường hợp cụ thể (hôn mê, có biến chứng tim mạch, giai đoạn muộn) "
+                                     "phải dùng insulin tiêm.\n"
+                                     )
+
+            return []
+
+    class Prevent_daithaoduong(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_daithaoduong"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Nghỉ ngơi hoàn toàn trong giai đoạn cấp\n"
+                                     " - Giai đoạn ổn định, làm việc bình thường, tránh lao động quá sức\n"
+                                     " - Ăn: Hạn chế chất Glucid nhưng vẫn phải đảm bảo số calo cần thiết cho mỗi ngày (2000 calo)\n"
+                                     " - Điều chỉnh lượng thức ăn theo kết quả xét nghiệm sinh hóa cho thích hợp\n"
+                                     " - Ăn tăng Protid thực vật và nhiều Vitamin"
+                                     )
+
+            return []
+
+    class Treatment_loetdaday(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_loetdaday"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị: \n"
+                                     " - Thuốc chống axit: Chủ yếu trung hoà axit: Hydroxit nhôm, Hydroxit magiê, trixilicat magiê. "
+                                     "Không dùng NaHCO3 gây viêm dạ dày và tăng HCl pha 2 \n"
+                                     " - Các thuốc bảo vệ niêm mạc, băng niêm mạc: Alumin Sacharo sulfat ( Surcralfate). Khi gặp HCl "
+                                     "trở nên dính quánh, có tác dụng băng niêm mạc\n"
+                                     " - Các thuốc chống bài tiết: Ức chế cảm thụ H2 (tế bào viền): cimetidin, ranitidin, nizatidin, "
+                                     "famotidin thế hệ sau có nhiều ưu việt hơn thế hệ trước liều nhỏ hơn ít tác dụng phụ hơn\n"
+                                     " - \n"
+                                     )
+
+            return []
+
+    class Prevent_loetdaday(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_loetdaday"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Điều trị sớm bệnh loét, điều trị triệt để, tránh các biến chứng xảy ra\n"
+                                     " - Một số thuốc có khả năng làm tăng nguy cơ biến chứng hoặc tăng nguy cơ "
+                                     "mắc bệnh như các thuốc giảm đau chống viêm, các steroid phẩi được chú ý đặc biêt "
+                                     "khi dùng cho nhưngbnguoi có tiền sử loét\n"
+                                     " - Các thuốc điều trị dạ dày hành tá tràng hiện nay chưa thấy có tai biến đáng kể. "
+                                     "với các kháng sinh phải tuân thủ nguyên tắc sử dụng klháng sinh.\n"
+                                     )
+
+            return []
+
+    class Treatment_benh(Action):
+
+        def name(self) -> Text:
+            return "action_treatment_soithan"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách chữa trị:\n"
+                                     " - Chú ý chế độ ăn: ăn nhiều hoa quả, rau, sữa. Nên hạn chế ăn thịt "
+                                     "hay thức ăn có nhiều Canxi (tuỳ theo loại sỏi)\n"
+                                     " - Dùng từng đợt thuốc lợi tiểu đông và tây y.\n"
+                                     " - Dùng kết hợp với thuốc tăng co bóp mạch như Prostigmin hoặc thuốc có tác "
+                                     "dụng giãn cơ như Atropin hay Nospa\n"
+                                     " - Dùng kháng sinh trong những trường hợp có nhiễm khuẩn\n"
+                                     )
+
+            return []
+
+    class Prevent_benh(Action):
+
+        def name(self) -> Text:
+            return "action_prevent_soithan"
+
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+            dispatcher.utter_message("Sau đây là một số cách phòng bệnh: \n"
+                                     " - Cần tẩy giun, sán thường xuyên để tránh những rối loạn và chuyển hoá chất.\n"
+                                     " - Đảm bảo chế độ ăn đủ các chất , hợp lý, thức ăn nên thay đổi.\n"
+                                     " - Cho uống đủ nước với những bệnh nhân phải nằm lâu dài (liệt tuỷ, lao cột sống, gãy xương).\n"
+                                     )
+
+            return []

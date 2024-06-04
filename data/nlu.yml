@@ -93,23 +93,11 @@ nlu:
     - mình đang cảm thấy hơi mệt
     - tôi cảm thấy mệt quá
     - t mệt ghê ấy
-
-- intent: cond_sick
-  examples: |
-    - tôi đang [đau đầu](cust_cond)
-    - tự dưng [nhức đầu](cust_cond) ghê
-    - cứu, [đầu](cust_cond) tôi đau ghê
-    - [đau bụng](cust_cond) quá ấy
-    - [bụng](cust_cond) mình đau ghê
-    - giúp với tôi bị [sổ mũi](cust_cond)
-    - em bị [đau họng](cust_cond) giờ phải làm sao
-    - [viêm họng](cust_cond) quá
-    - cô đang bị [cảm](cust_cond) í
-    - tui bị [sốt](cust_cond) bạn giúp tui được không?
-    - bị [cảm cúm](cust_cond) khó chịu quá!
-    - mình đang bị [ho](cust_cond)
-    - hình như anh đang [đau trong lòng](cust_cond)
-    - cô cảm giác như bị [cảm](cust_cond)
+    - thầy cảm thấy không khỏe
+    - cảm thấy khó thở
+    - không ăn uống được
+    - trong người khó chịu quá
+    - đang bị ho
 
 - intent: assess_weight
   examples: |
@@ -246,28 +234,131 @@ nlu:
     - bất tài
     - vô dụng
 
-- intent: ask_nutrition_fact
+- intent: ask_treatment
   examples: |
-    - hôm nay ăn gì nhỉ?
-    - ăn gì đây ta
-    - giá trị dinh dưỡng các món ăn phổ biến
-    - chất dinh dưỡng có trong thức ăn
-    - các chất có trong món ăn hàng ngày
-    - dinh dưỡng trong các món ăn
+    - Làm thế nào để chữa bệnh hen suyễn?
+    - Cách điều trị viêm phổi là gì?
+    - Tôi nên làm gì khi bị viêm phế quản?
+    - Có cách nào chữa trị ho khan không?
+    - Làm thế nào để giảm đau họng?
+    - Làm sao để chữa đau dạ dày?
+    - Cách điều trị viêm loét dạ dày là gì?
+    - Tôi nên làm gì khi bị rối loạn tiêu hóa?
+    - Có cách nào chữa táo bón không?
+    - Làm thế nào để giảm tiêu chảy?
+    - Làm sao để điều trị bệnh tim mạch?
+    - Cách điều trị cao huyết áp là gì?
+    - Tôi nên làm gì khi bị tiểu đường?
+    - Có cách nào chữa bệnh tuyến giáp không?
+    - Làm thế nào để điều trị bệnh nội tiết?
+    - Làm sao để chữa bệnh thận?
+    - Cách điều trị viêm bàng quang là gì?
+    - Tôi nên làm gì khi bị sỏi thận?
+    - Có cách nào chữa tiểu rắt không?
+    - Làm thế nào để điều trị bệnh tiết niệu?
+    - Làm sao để chữa bệnh giun đũa?
+    - Cách điều trị bệnh sán lá gan là gì?
+    - Tôi nên làm gì khi bị giun kim?
+    - Có cách nào chữa giun móc không?
+    - Làm thế nào để điều trị bệnh giun sán?
 
-- intent: ask_drugstore
+- intent: ask_prevention
   examples: |
-    - mua thuốc ở đâu?
-    - địa điểm bán thuốc
-    - quầy thuốc ở Huế
-    - làm sao để mua thuốc
-    - tôi muốn mua thuốc
+    - Làm thế nào để phòng tránh bệnh hen suyễn?
+    - Cách phòng ngừa viêm phổi là gì?
+    - Tôi nên làm gì để tránh viêm phế quản?
+    - Có cách nào ngăn ngừa ho khan không?
+    - Làm thế nào để phòng ngừa đau họng?
+    - Làm sao để phòng tránh đau dạ dày?
+    - Cách phòng ngừa viêm loét dạ dày là gì?
+    - Tôi nên làm gì để tránh rối loạn tiêu hóa?
+    - Có cách nào ngăn ngừa táo bón không?
+    - Làm thế nào để phòng ngừa tiêu chảy?
+    - Làm sao để phòng tránh bệnh tim mạch?
+    - Cách phòng ngừa cao huyết áp là gì?
+    - Tôi nên làm gì để tránh tiểu đường?
+    - Có cách nào ngăn ngừa bệnh tuyến giáp không?
+    - Làm thế nào để phòng ngừa bệnh nội tiết?
+    - Làm sao để phòng tránh bệnh thận?
+    - Cách phòng ngừa viêm bàng quang là gì?
+    - Tôi nên làm gì để tránh sỏi thận?
+    - Có cách nào ngăn ngừa tiểu rắt không?
+    - Làm thế nào để phòng ngừa bệnh tiết niệu?
+    - Làm sao để phòng tránh bệnh giun đũa?
+    - Cách phòng ngừa bệnh sán lá gan là gì?
+    - Tôi nên làm gì để tránh giun kim?
+    - Có cách nào ngăn ngừa giun móc không?
+    - Làm thế nào để phòng ngừa bệnh giun sán?
 
-- intent: ask_weather
+# viem phe quan cap
+- intent: ask_chuan_doan_lamsan_viemphequancap
   examples: |
-    - thời tiết hôm nay
-    - tối nay thời tiết thế nào nhỉ
-    - dự báo thời tiết
-    - tôi muốn xem thời tiết hiện tại
-    - nhiệt độ hiện tại
-    - trời hôm nay nóng quá, cho xem tình hình thời tiết đi
+    - Tôi thấy cảm giác rát bỏng sau xương ức, tăng khi ho
+    - Mình bị khan hoặc ông ổng, ho từng cơn, khản tiếng
+    - Sốt cao 39 - 40 độ, nhức đầu, mệt mỏi, biếng ăn. Khám phổi có rải rác ran rít và ran ẩm to hoặc vừa hạt.
+    - Thầy bị ho suốt mấy ngày liền rồi
+    - Tôi bị ho liên tục khi ho tôi bị đau, tức ngực khi ho
+    - Ho, khản tiếng, thở khò khè
+    - Khó thở rõ rệt, co kéo lồng ngực, tím, nhịp thở nhanh
+    - Thầy có giảm giác đau rát cổ khi ho
+    - Tôi có sốt cao kèm với ho và rát cổ khi ho
+    - Triệu chứng ho của tôi đã kéo dài khá lâu
+
+# viem phe quan cap
+- intent: ask_chuan_doan_lamsan_tanghuyetap
+  examples: |
+    - chú bị nhức đầu từng cơn hay liên tục ở gáy
+    - bác bị nhức đầu liên tục hai bên thái dương
+    - thầy bị đau đầu liên tục đôi khi từng cơn ở hai nhãn cầu
+    - gốc mũi hay bị đau nhức
+    - tai tôi đôi lúc bị ù ù
+    - mắt bị nảy đom đóm
+    - trí nhớ của mình bị suy giảm và hay quên nhiều việc
+    - huyết áp cao, đôi lúc nhức đầu, hay quên
+
+# nhoi mau co tim
+- intent: ask_chuan_doan_lamsan_nhoimaucotim
+  examples: |
+    - Đau ngực với cảm giác đau như bị đè ép, bóp chặt ở giữa ngực
+    - Tức ngực diễn ra trong thời gian ngắn
+    - Đau nhói lồng ngực diễn ra trong khoảng 5-15 phút
+    - Đau ngực trái và lan lên vai, cổ, hàm hoặc lan dọc theo cánh tay, đặc biệt là tay trái
+    - Vã mồ hôi kèm theo tim đập mạnh
+    - Đau tức ngực và buồn nôn, chóng mặt, bất tỉnh, mệt nhọc, khó thở, tái nhợt, tim đập nhanh
+
+# dai thao duong
+- intent: ask_chuan_doan_lamsan_daithaoduong
+  examples: |
+    - Uống nhiều nước, đi đái nhiều và rất khát nước, luôn thèm nước ngọt
+    - Sút cân nhanh, teo các cơ, tuy nhiên lại hình thành nhiều mỡ dưới da
+    - Ăn nhiều, người bệnh luôn có cảm giác đói, do vậy ăn rất nhiều, giảm 5 đến 10 cân trong vài tháng
+    - Hay bị nhiễm trùng đặc biệt là nhiễm trùng da, sinh dục, tiết niệu
+    - Gần đây tôi dễ bị nhiễm tiết niệu vì đi đái quá nhiều, cơ thể luôn khát dẫn đến uống rất nhiều nước
+
+# xo gan
+- intent: ask_chuan_doan_lamsan_sogan
+  examples: |
+    - Đau nhẹ hạ sườn phải
+    - Rối loạn tiêu hóa, chướng hơi
+    - Giãn mao mạch vùng cổ, ngực
+
+# Loét dạ dày - tá tràng
+- intent: ask_chuan_doan_lamsan_loetdaday
+  examples: |
+    - Đau dạ dày có tính chất chu kỳ, từng đợt
+    - Tôi có tình trạng đau dạ dày ngay sau khi ăn
+    - Đau dạ dày sau khi ăn từ 2 đến 3 giờ
+    - Đau lúc đói, vùng đau hơi lệch sang phải, cảm giác đau bỏng rát
+    - Có tình trạng ợ hơi, ợ chua ,nấc, nôn, buồn nôn
+    - Đau dạ dày sau khi ăn xong và nằm
+    - Dạ dày không phải lúc nào cũng đau, và cơn đau chi ra từng đợt
+
+# Sỏi thận
+- intent: ask_chuan_doan_lamsan_soithan
+  examples: |
+    - Tôi bị đau quặn ở một bên vùng thắt lưng xuyên ra trước lan dọc theo đường đi của niệu quản rồi tận cùng ở cơ quan sinh dục ngoài.
+    - Bị đau khi lao động nặng hoặc đi xa
+    - Tôi bị tình trạng lúc đi vệ sinh rất đau, nhiều khi đái ra máu
+    - Cảm giác giống như đau lưng, cơn đau dữ dội khi di vệ sinh
+    - Đôi khi đái ra sỏi nhỏ, khi đái ra sỏi cơn đau chạy khắp thân dưới
+    - Cơn đau sẽ hết khi nghỉ ngơi hoặc khi đã đái ra sỏi

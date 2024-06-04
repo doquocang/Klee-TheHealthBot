@@ -29,13 +29,12 @@ rules:
 
 - rule: Cho người dùng xem chất dinh dưỡng ở các món ăn phổ biến
   steps:
-  - intent: ask_nutrition_fact
-  - action: action_give_nutrition_fact
-
-- rule: Cho người dùng xem thông tin, địa chỉ các quầy thuốc
-  steps:
-  - intent: ask_drugstore
-  - action: action_give_drugstore
+  - intent: ask_nutrition
+    entities:
+    - cust_food: bánh
+  - slot_was_set:
+    - cust_weight: bánh
+  - action: action_give_nutrition
 
 - rule: Gợi ý các hoạt động thể dục cho người dùng
   steps:
@@ -46,3 +45,8 @@ rules:
   steps:
   - intent: ask_weather
   - action: action_give_weather
+
+- rule: Hỏi lại người dùng về bệnh
+  steps:
+  - intent: cond_feel_sick
+  - action: utter_cond_feel_sick

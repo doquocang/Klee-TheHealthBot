@@ -3,18 +3,21 @@ services:
     rasa:
       container_name: "rasa_server"
       user: root
-      build:
-        context:  .
+#      build:
+#        context:  .
+      image: doquocang64/klee_thehealthbot_rasa_server:latest
       volumes:
       - "./:/app"
       ports:
         - "5005:5005"
       networks:
         - rasa_network
+      command: ["run", "--endpoints", "endpoints.yml", "--credentials", "credentials.yml"]
     action_server:
       container_name: "action_server"
-      build:
-        context: actions
+#      build:
+#        context: actions
+      image: doquocang64/klee_thehealthbot_actions_server:latest
       volumes:
         - ./actions:/app/actions
         - ./data:/app/data
@@ -25,3 +28,4 @@ services:
 networks:
   rasa_network:
     driver: bridge
+

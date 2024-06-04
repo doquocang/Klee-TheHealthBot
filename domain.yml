@@ -25,6 +25,16 @@ intents:
 - lose_weight
 - ask_nutrition
 - ask_exercise
+- ask_treatment
+- ask_prevention
+#benh
+- ask_chuan_doan_lamsan_viemphequancap
+- ask_chuan_doan_lamsan_tanghuyetap
+- ask_chuan_doan_lamsan_nhoimaucotim
+- ask_chuan_doan_lamsan_daithaoduong
+- ask_chuan_doan_lamsan_sogan
+- ask_chuan_doan_lamsan_loetdaday
+- ask_chuan_doan_lamsan_soithan
 
 entities:
 - cust_cond
@@ -66,9 +76,9 @@ responses:
   utter_greet:
   - text: xin chào!✌, vui lòng cho Klee biết tên, để Klee có thể tiện xưng hô nha 😄!
   utter_cond_feel_sick:
-  - text: '{cust_role} có thể cho Klee biết, cụ thể không khỏe chỗ nào thế nhỉ 🤔?'
+  - text: "{cust_role} có thể cho Klee biết các triệu chứng cụ thể được không🤔?"
   utter_cond_well:
-  - text: thế thì tốt quá😄!!! nhưng {cust_role} cũng đừng chủ quan quá đấy, vậy Klee có thể giúp gì nữa không nhỉ?
+  - text: "thế thì tốt quá😄!!! nhưng {cust_role} cũng đừng chủ quan quá đấy, vậy Klee có thể giúp gì nữa không nhỉ?"
   utter_assess_weight:
   - text: vui lòng cho Klee biết chiều cao và cân nặng, để Klee kiểm tra nha🧐!!!
   utter_goodbye:
@@ -88,15 +98,55 @@ responses:
   - text: cho Klee hỏi, hiện sức khỏe của {cust_role} {cust_name} thế nào nhỉ 🤔?
   utter_deny_endup:
   - text: cám ơn vì đã tin tưởng Klee nha 😘!, rất mong trong lần tới Klee có thể giúp đỡ {cust_role} {cust_name}!
+#1
+  utter_chuan_doan_lamsan_viemphequancap:
+  - text: "rất có thể {cust_role} đã bị viêm phế quản cấp"
+#2
+  utter_chuan_doan_lamsan_tanghuyetap:
+  - text: "rất có thể {cust_role} đã bị tăng huyết áp"
+#3
+  utter_chuan_doan_lamsan_nhoimaucotim:
+  - text: "rất có thể {cust_role} đã bị nhồi máu cơ tim"
+#4
+  utter_chuan_doan_lamsan_daithaoduong:
+  - text: "rất có thể {cust_role} đã bị đái tháo đường"
+#5
+  utter_chuan_doan_lamsan_sogan:
+  - text: "rất có thể {cust_role} đã bị sơ gan"
+#6
+  utter_chuan_doan_lamsan_loetdaday:
+  - text: "rất có thể {cust_role} đã bị viêm loét dạ dày"
+#7
+  utter_chuan_doan_lamsan_soithan:
+  - text: "rất có thể {cust_role} đã bị sỏi thận"
 
 actions:
-- action_give_advise
 - action_give_bmi
-- action_give_drugstore
-- action_give_nutrition_fact
 - action_give_weather
 - action_welcome_with_name
 - action_gain_weight
 - action_lose_weight
 - action_give_nutrition
 - action_exercise
+#1
+- action_chuan_doan_phanbiet_viemphequancap
+- action_treatment_viemphequancap
+- action_prevent_viemphequancap
+#2
+- action_treatment_tanghuyetap
+- action_prevent_tanghuyetap
+#3
+- action_treatment_nhoimaucotim
+- action_prevent_nhoimaucotim
+#4
+- action_treatment_daithaoduong
+- action_prevent_daithaoduong
+#5
+- action_treatment_sogan
+- action_prevent_sogan
+#6
+- action_treatment_loetdaday
+- action_prevent_loetdaday
+#7
+- action_treatment_soithan
+- action_prevent_soithan
